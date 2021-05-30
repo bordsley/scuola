@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/png" href="/favicon.png"/>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% endblock %}
+        {{ encore_entry_link_tags('auth') }}
+
+        {% block javascripts %}
+           
+        {% endblock %}
+         {{ encore_entry_script_tags('auth') }}
+    </head>
+    <body style="background-image: url(../img/wave_light.svg);background-size: cover;background-repeat: no-repeat;" class="has-background-black-ter">
+        {% block body %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,47 @@
+lexik_jwt_authentication:
+    secret_key: '%env(resolve:JWT_SECRET_KEY)%'
+    public_key: '%env(resolve:JWT_PUBLIC_KEY)%'
+    pass_phrase: '%env(JWT_PASSPHRASE)%'
+    token_ttl: 10800
+    user_identity_field: username
+    
+    encoder:
+        # token encoder/decoder service - default implementation based on the lcobucci/jwt library
+        service:            lexik_jwt_authentication.encoder.lcobucci
+
+        # encryption algorithm used by the encoder service
+        signature_algorithm: RS256
+
+    token_extractors:
+        cookie:
+           enabled: true
+           name: BEARER
+        split_cookie:
+            enabled: true
+            cookies:
+                - jwt_hp
+                - jwt_s
+        authorization_header:
+            enabled: true
+            prefix:  Bearer
+            name:    Authorization
+
+    set_cookies:
+        jwt_hp:
+            lifetime: null
+            samesite: strict
+            path: /
+            domain: null
+            httpOnly: false
+            split:
+                - header
+                - payload
+
+        jwt_s:
+            lifetime: null
+            samesite: strict
+            path: /
+            domain: null
+            httpOnly: true
+            split:
+                - signature
